@@ -54,6 +54,12 @@ target 'DMPVet_Evol_Pocs' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
+  pod 'MerryPhotoViewer', :path => '../node_modules/@merryjs/photo-viewer'
+
   target 'DMPVet_Evol_PocsTests' do
     inherit! :complete
     # Pods for testing
