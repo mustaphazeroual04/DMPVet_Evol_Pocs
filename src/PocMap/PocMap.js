@@ -151,7 +151,7 @@ class PocMap extends React.Component {
     );
     if (chckLocationPermission === PermissionsAndroid.RESULTS.GRANTED) {
       Geolocation.getCurrentPosition(
-        position => {
+        (position) => {
           const initialPosition = JSON.stringify(position);
           // this.setState({region: position.coords});
           console.log(initialPosition);
@@ -171,7 +171,7 @@ class PocMap extends React.Component {
             },
           });
         },
-        error => {
+        (error) => {
           this.setState({error: error.message});
           console.log(error);
         },
@@ -190,7 +190,7 @@ class PocMap extends React.Component {
         );
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
           Geolocation.getCurrentPosition(
-            position => {
+            (position) => {
               const initialPosition = JSON.stringify(position);
               // this.setState({region: position.coords});
               console.log(initialPosition);
@@ -210,7 +210,7 @@ class PocMap extends React.Component {
                 },
               });
             },
-            error => {
+            (error) => {
               this.setState({error: error.message});
               console.log(error);
             },
@@ -243,7 +243,7 @@ class PocMap extends React.Component {
     );
   };
 
-  renderListOfSeachedVet = ResultList => {
+  renderListOfSeachedVet = (ResultList) => {
     if (ResultList.length == 0) {
       return (
         <View style={{height: 100, backgroundColor: 'white'}}>
@@ -354,7 +354,7 @@ class PocMap extends React.Component {
       );
   };
   //getAllRoutesData
-  getData = listOfVets => {
+  getData = (listOfVets) => {
     let AppCalls = [];
     AppCalls = listOfVets.map((vet, index) => {
       return fetch(
@@ -372,8 +372,8 @@ class PocMap extends React.Component {
     });
     console.log('list of routes : ', AppCalls);
     Promise.all(AppCalls)
-      .then(values => Promise.all(values.map(value => value.json())))
-      .then(finalVals => {
+      .then((values) => Promise.all(values.map((value) => value.json())))
+      .then((finalVals) => {
         this.setState(
           {listOffRoutes: finalVals, region: this.state.userLocation},
           () => {
@@ -385,7 +385,7 @@ class PocMap extends React.Component {
       });
   };
   //compare routes
-  compareAllRoutes = listOffRoutes => {
+  compareAllRoutes = (listOffRoutes) => {
     let distanceValues = [];
     for (let index = 0; index < listOffRoutes.length; index++) {
       distanceValues.push(
@@ -474,7 +474,7 @@ class PocMap extends React.Component {
     }
   }
 
-  onRegionChange = region => {
+  onRegionChange = (region) => {
     this.setState({
       region: region,
     });
@@ -482,7 +482,7 @@ class PocMap extends React.Component {
   };
   findCoordinates = () => {
     Geolocation.getCurrentPosition(
-      position => {
+      (position) => {
         const initialPosition = JSON.stringify(position);
         console.log('hello', initialPosition);
         this.setState({
@@ -494,30 +494,30 @@ class PocMap extends React.Component {
           },
         });
       },
-      error => this.setState({error: error.message}),
+      (error) => this.setState({error: error.message}),
       {enableHighAccuracy: true, timeout: 2000, maximumAge: 2000},
     );
   };
   goToInitialRegion() {
     this.mapView.animateToRegion(this.state.userLocation, 2000);
   }
-  findVet = query => {
+  findVet = (query) => {
     if (query === '') {
       return [];
     }
     const regex = new RegExp(`${query.trim()}`, 'i');
     console.log('catch : ', query);
-    console.log(listOfVets.filter(vet => vet.vetName.search(regex) >= 0));
-    return listOfVets.filter(vet => vet.vetName.search(regex) >= 0);
+    console.log(listOfVets.filter((vet) => vet.vetName.search(regex) >= 0));
+    return listOfVets.filter((vet) => vet.vetName.search(regex) >= 0);
   };
-  filterSearch = text => {
+  filterSearch = (text) => {
     if (text === '') return [];
     else {
       const regex = new RegExp(`${text.trim()}`, 'i');
       console.log('catch : ', text);
-      console.log(listOfVets.filter(vet => vet.vetName.search(regex) >= 0));
+      console.log(listOfVets.filter((vet) => vet.vetName.search(regex) >= 0));
       SearchedVetList = listOfVets.filter(
-        vet =>
+        (vet) =>
           vet.vetName.search(regex) >= 0 ||
           vet.adress.search(regex) >= 0 ||
           vet.phone.search(regex) >= 0 ||
@@ -537,7 +537,7 @@ class PocMap extends React.Component {
           // onRegionChange={region => this.onRegionChange(region)}
           style={styles.map}
           followUserLocation={true}
-          ref={ref => (this.mapView = ref)}
+          ref={(ref) => (this.mapView = ref)}
           // onMapReady={this.goToInitialRegion.bind(this)}
           zoomEnabled={true}
           showsUserLocation={true}
@@ -566,7 +566,7 @@ class PocMap extends React.Component {
             return (
               <Marker
                 coordinate={vet.vetAddress}
-                ref={_marker => {
+                ref={(_marker) => {
                   this.marker[index] = _marker;
                 }}
                 // onCalloutPress={() => {
@@ -656,7 +656,7 @@ class PocMap extends React.Component {
             <TextInput
               style={{width: '80%', color: '#233F6C'}}
               placeholder="Chercher un vétérinaire (ex : vet1)"
-              onChangeText={text => this.setState({searchText: text})}
+              onChangeText={(text) => this.setState({searchText: text})}
               value={this.state.text}></TextInput>
             {/* <View style={styles.autocompleteContainer}>
               <Autocomplete
@@ -1035,3 +1035,5 @@ const styles = StyleSheet.create({
 });
 
 export default PocMap;
+
+// add this to verify git
